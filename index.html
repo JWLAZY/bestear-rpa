@@ -1,0 +1,2374 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BestEar RPA 自动化工作台 · App 配色版</title>
+  <link rel="icon" type="image/png" href="assets/icon.png">
+  <style>
+    :root {
+      --jet: #ff321f;
+      --jet-deep: #e7271a;
+      --jet-soft: #ff6b55;
+      --ink: #111827;
+      --muted: #667085;
+      --line: rgba(17, 24, 39, 0.12);
+      --paper: #fffaf7;
+      --white: #ffffff;
+      --blue: #2563eb;
+      --cyan: #00d5ff;
+      --green: #20c997;
+      --amber: #ffb020;
+      --rose: #f04438;
+      --radius: 18px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+      overscroll-behavior: none;
+      overflow-x: hidden;
+      scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar {
+      display: none;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      letter-spacing: 0;
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      scrollbar-width: none;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    main {
+      scroll-snap-type: y mandatory;
+    }
+
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      width: min(1340px, calc(100% - 96px));
+      margin: 0 auto;
+      padding: 30px 0;
+      color: var(--white);
+      transition: color 180ms ease, background 180ms ease, box-shadow 180ms ease, padding 180ms ease;
+    }
+
+    .topbar.is-scrolled {
+      width: min(1340px, calc(100% - 48px));
+      margin-top: 12px;
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 18px 54px rgba(17, 24, 39, 0.11);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .brand-mark {
+      position: relative;
+      display: inline-flex;
+      width: 40px;
+      height: 40px;
+      flex: 0 0 40px;
+      padding: 2px;
+      overflow: hidden;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 16px 34px rgba(8, 32, 57, 0.22), inset 0 0 0 1px rgba(255, 255, 255, 0.62);
+    }
+
+    .topbar.is-scrolled .brand-mark {
+      background: var(--white);
+      box-shadow: 0 10px 26px rgba(8, 32, 57, 0.16), inset 0 0 0 1px rgba(17, 24, 39, 0.08);
+    }
+
+    .brand-mark img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border-radius: 11px;
+      object-fit: cover;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      display: none;
+      position: absolute;
+      border-radius: 999px;
+    }
+
+    .brand-mark::before {
+      width: 17px;
+      height: 17px;
+      border: 3px solid var(--white);
+      border-left-color: transparent;
+      animation: spin 6s linear infinite;
+    }
+
+    .topbar.is-scrolled .brand-mark::before {
+      border-color: var(--jet);
+      border-left-color: transparent;
+    }
+
+    .brand-mark::after {
+      width: 7px;
+      height: 7px;
+      background: var(--cyan);
+      box-shadow: 0 0 24px var(--cyan);
+    }
+
+    .nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.11);
+      backdrop-filter: blur(18px);
+    }
+
+    .topbar.is-scrolled .nav {
+      border-color: rgba(17, 24, 39, 0.08);
+      background: rgba(17, 24, 39, 0.04);
+    }
+
+    .nav a {
+      border-radius: 999px;
+      padding: 10px 15px;
+      color: rgba(255, 255, 255, 0.86);
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 180ms ease, color 180ms ease;
+    }
+
+    .topbar.is-scrolled .nav a {
+      color: rgba(17, 24, 39, 0.7);
+    }
+
+    .nav a:hover {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .topbar.is-scrolled .nav a:hover {
+      color: var(--ink);
+      background: rgba(17, 24, 39, 0.06);
+    }
+
+    .top-actions {
+      display: inline-flex;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 999px;
+      padding: 0 22px;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.12);
+      font-size: 15px;
+      font-weight: 850;
+      white-space: nowrap;
+      box-shadow: 0 18px 50px rgba(126, 17, 10, 0.12);
+      transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    .topbar.is-scrolled .btn {
+      border-color: rgba(17, 24, 39, 0.08);
+      color: var(--ink);
+      background: rgba(17, 24, 39, 0.04);
+      box-shadow: none;
+    }
+
+    .topbar.is-scrolled .btn.light {
+      color: var(--white);
+      background: var(--jet);
+      box-shadow: 0 12px 30px rgba(255, 50, 31, 0.18);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 22px 60px rgba(126, 17, 10, 0.18);
+    }
+
+    .btn.light {
+      color: var(--jet);
+      background: var(--white);
+      box-shadow: 0 18px 46px rgba(126, 17, 10, 0.2);
+    }
+
+    .btn.ink {
+      border-color: rgba(17, 24, 39, 0.1);
+      color: var(--white);
+      background: var(--ink);
+      box-shadow: 0 18px 46px rgba(17, 24, 39, 0.18);
+    }
+
+    .hero {
+      position: relative;
+      height: 100svh;
+      min-height: 780px;
+      isolation: isolate;
+      overflow: hidden;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 76% 26%, rgba(0, 213, 255, 0.46) 0, transparent 22%),
+        radial-gradient(circle at 62% 76%, rgba(255, 255, 255, 0.22) 0, transparent 24%),
+        linear-gradient(132deg, var(--jet) 0%, var(--jet-deep) 54%, #ff533d 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background:
+        linear-gradient(115deg, transparent 0%, transparent 36%, rgba(255, 255, 255, 0.26) 46%, transparent 56%),
+        linear-gradient(74deg, transparent 12%, rgba(0, 213, 255, 0.24) 36%, transparent 58%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0, rgba(255, 255, 255, 0.08) 1px, transparent 1px, transparent 78px);
+      opacity: 0.75;
+      animation: lightSweep 10s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      z-index: -1;
+      height: 34%;
+      background: linear-gradient(180deg, transparent, rgba(122, 18, 9, 0.18));
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(410px, 0.74fr);
+      gap: 58px;
+      align-items: end;
+      width: min(1340px, calc(100% - 96px));
+      height: 100%;
+      margin: 0 auto;
+      padding: 126px 0 108px;
+    }
+
+    .hero-copy {
+      align-self: end;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 820px;
+      font-size: 106px;
+      line-height: 0.96;
+      font-weight: 950;
+      letter-spacing: 0;
+    }
+
+    .hero-line {
+      display: block;
+    }
+
+    .hero-text {
+      max-width: 470px;
+      margin-top: 28px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 22px;
+      line-height: 1.44;
+      font-weight: 700;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .hero-side {
+      position: relative;
+      align-self: end;
+      min-height: 500px;
+    }
+
+    .product-orbit {
+      position: absolute;
+      inset: 0 0 auto auto;
+      width: min(100%, 530px);
+      min-height: 500px;
+    }
+
+    .orbit-ring {
+      position: absolute;
+      inset: 48px 0 auto auto;
+      width: 430px;
+      height: 430px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 50%;
+      transform: rotate(-12deg);
+      animation: orbit 18s linear infinite;
+    }
+
+    .orbit-ring::before,
+    .orbit-ring::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 28px var(--cyan);
+    }
+
+    .orbit-ring::before {
+      width: 12px;
+      height: 12px;
+      top: 46px;
+      left: 78px;
+    }
+
+    .orbit-ring::after {
+      width: 8px;
+      height: 8px;
+      right: 54px;
+      bottom: 92px;
+      background: var(--white);
+      box-shadow: 0 0 22px var(--white);
+    }
+
+    .phone {
+      position: absolute;
+      right: 150px;
+      top: 76px;
+      width: 182px;
+      height: 356px;
+      border: 9px solid rgba(255, 255, 255, 0.82);
+      border-radius: 36px;
+      background: linear-gradient(180deg, #fff 0%, #eef7ff 100%);
+      box-shadow: 0 42px 100px rgba(88, 11, 6, 0.34), inset 0 0 0 1px rgba(17, 24, 39, 0.08);
+      transform: rotate(-7deg);
+      animation: floatPhone 5.8s ease-in-out infinite;
+      overflow: hidden;
+    }
+
+    .phone::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 10px;
+      width: 58px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(17, 24, 39, 0.14);
+      transform: translateX(-50%);
+    }
+
+    .phone-screen {
+      display: grid;
+      gap: 12px;
+      height: 100%;
+      padding: 38px 14px 18px;
+    }
+
+    .feed-card {
+      border-radius: 18px;
+      padding: 12px;
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(37, 99, 235, 0.12);
+    }
+
+    .feed-card i,
+    .feed-card span {
+      display: block;
+      border-radius: 999px;
+      background: #e9eef8;
+    }
+
+    .feed-card i {
+      height: 72px;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, rgba(255, 50, 31, 0.16), rgba(0, 213, 255, 0.2));
+    }
+
+    .feed-card span {
+      width: 76%;
+      height: 8px;
+    }
+
+    .feed-card span + span {
+      width: 48%;
+      margin-top: 8px;
+      background: #f2f4f8;
+    }
+
+    .automation-panel {
+      position: absolute;
+      right: 0;
+      bottom: 42px;
+      width: 322px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 28px;
+      padding: 18px;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 38px 90px rgba(90, 11, 6, 0.26);
+      backdrop-filter: blur(16px);
+      animation: floatPanel 6.4s ease-in-out infinite;
+    }
+
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #087f5b;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(32, 201, 151, 0.38);
+      animation: pulse 1.8s ease-out infinite;
+    }
+
+    .task-row {
+      position: relative;
+      display: grid;
+      grid-template-columns: 38px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      margin-top: 10px;
+      border-radius: 18px;
+      padding: 10px;
+      background: #f7fbff;
+      overflow: hidden;
+    }
+
+    .task-row::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 -42%;
+      width: 42%;
+      background: linear-gradient(90deg, transparent, rgba(0, 213, 255, 0.28), transparent);
+      animation: rowSweep 4.8s ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    .task-icon {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      border-radius: 14px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .task-row b {
+      display: block;
+      font-size: 14px;
+    }
+
+    .task-row small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .task-pill {
+      border-radius: 999px;
+      padding: 6px 8px;
+      color: var(--blue);
+      background: rgba(37, 99, 235, 0.1);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .hero-note {
+      position: absolute;
+      right: 16px;
+      top: 0;
+      max-width: 270px;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 18px;
+      line-height: 1.38;
+      font-weight: 850;
+    }
+
+    .hero-dock {
+      position: absolute;
+      left: 50%;
+      bottom: 28px;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      max-width: min(92vw, 640px);
+      padding: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      color: rgba(255, 255, 255, 0.84);
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(18px);
+      transform: translateX(-50%);
+      box-shadow: 0 18px 50px rgba(126, 17, 10, 0.16);
+    }
+
+    .hero-dock a,
+    .hero-dock span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border-radius: 999px;
+      padding: 0 17px;
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .hero-dock span {
+      width: 48px;
+      padding: 0;
+      color: var(--jet);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-dock a:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    main > section {
+      min-height: 100svh;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
+
+    main > section:not(.hero) {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 780px;
+      height: 100svh;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .snap-section {
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+
+    .snap-section:not(.is-active) {
+      opacity: 0.48;
+    }
+
+    .snap-section.is-active {
+      opacity: 1;
+    }
+
+    .section-inner {
+      width: min(1240px, calc(100% - 96px));
+      margin: 0 auto;
+    }
+
+    .snap-section:not(.hero) .section-inner {
+      padding-top: 74px;
+    }
+
+    .kicker {
+      color: var(--jet);
+      font-size: 14px;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      max-width: 780px;
+      margin-top: 14px;
+      font-size: 62px;
+      line-height: 1.02;
+      font-weight: 950;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .section-copy {
+      max-width: 560px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.62;
+      font-weight: 650;
+    }
+
+    .step-status {
+      position: absolute;
+      right: max(96px, calc((100vw - 1240px) / 2));
+      top: 132px;
+      z-index: 5;
+      display: none;
+      min-width: 220px;
+      border: 1px solid rgba(255, 50, 31, 0.18);
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--jet);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 18px 54px rgba(17, 24, 39, 0.09);
+      backdrop-filter: blur(16px);
+      font-size: 13px;
+      font-weight: 950;
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .snap-section.is-active .step-status {
+      display: block;
+    }
+
+    .feature-lanes {
+      margin-top: 58px;
+      border-top: 1px solid var(--line);
+    }
+
+    .feature-lane {
+      position: relative;
+      display: grid;
+      grid-template-columns: 90px minmax(0, 1fr) 240px;
+      gap: 34px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding: 34px 0;
+      transition: opacity 460ms ease, transform 460ms ease, border-color 460ms ease, background 460ms ease, box-shadow 460ms ease;
+    }
+
+    .feature-lane::before {
+      content: "";
+      position: absolute;
+      left: -20px;
+      top: 20px;
+      bottom: 20px;
+      width: 5px;
+      border-radius: 999px;
+      background: var(--jet);
+      box-shadow: 0 0 28px rgba(255, 50, 31, 0.45);
+      opacity: 0;
+      transition: opacity 300ms ease;
+    }
+
+    .step-item {
+      opacity: 0.28;
+      transform: translateY(22px) scale(0.985);
+      filter: saturate(0.78);
+    }
+
+    .step-item.is-past {
+      opacity: 0.62;
+      transform: translateY(0) scale(1);
+      filter: saturate(0.9);
+    }
+
+    .step-item.is-active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: saturate(1);
+    }
+
+    .snap-section.is-active .step-item:not(.is-active):not(.is-past) {
+      opacity: 0.18;
+      transform: translateY(14px) scale(0.98);
+    }
+
+    .snap-section.is-active .step-item.is-past {
+      opacity: 0.46;
+    }
+
+    .feature-lane.step-item.is-active {
+      border-color: rgba(255, 50, 31, 0.24);
+      border-radius: 24px;
+      background: linear-gradient(90deg, rgba(255, 50, 31, 0.1), rgba(255, 255, 255, 0));
+      box-shadow: 0 24px 58px rgba(255, 50, 31, 0.1);
+      transform: translateX(22px) scale(1.018);
+    }
+
+    .feature-lane.step-item.is-active::before {
+      opacity: 1;
+    }
+
+    .feature-lane.step-item.is-active .lane-chip {
+      color: var(--white);
+      border-color: var(--jet);
+      background: var(--jet);
+      box-shadow: 0 14px 30px rgba(255, 50, 31, 0.18);
+    }
+
+    .lane-num {
+      color: var(--jet);
+      font-size: 18px;
+      font-weight: 950;
+    }
+
+    .feature-lane h3 {
+      font-size: 32px;
+      line-height: 1.1;
+      font-weight: 930;
+    }
+
+    .feature-lane p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.58;
+      font-weight: 650;
+    }
+
+    .lane-chip {
+      justify-self: end;
+      border: 1px solid rgba(255, 50, 31, 0.18);
+      border-radius: 999px;
+      padding: 11px 16px;
+      color: var(--jet);
+      background: rgba(255, 50, 31, 0.06);
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .workflow-section {
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, #fffaf7 0%, #ffffff 28%, #f3fbff 100%);
+    }
+
+    .workflow-stage {
+      position: relative;
+      min-height: 520px;
+      margin-top: 54px;
+      border-radius: 36px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 70% 28%, rgba(0, 213, 255, 0.2), transparent 28%),
+        linear-gradient(145deg, #ffffff 0%, #f5fbff 100%);
+      box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.08), 0 42px 110px rgba(37, 99, 235, 0.14);
+    }
+
+    .workflow-stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent);
+    }
+
+    .workflow-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .workflow-svg path {
+      fill: none;
+      stroke: url(#flowGradient);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 12 16;
+      animation: dash 18s linear infinite;
+      filter: drop-shadow(0 0 10px rgba(0, 213, 255, 0.5));
+    }
+
+    .flow-nodes {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 18px;
+      padding: 92px 46px 46px;
+    }
+
+    .flow-node {
+      min-height: 280px;
+      border: 1px solid rgba(37, 99, 235, 0.12);
+      border-radius: 26px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 20px 58px rgba(37, 99, 235, 0.08);
+      backdrop-filter: blur(12px);
+      transform: translateY(var(--lift, 0));
+      transition: opacity 460ms ease, transform 460ms ease, box-shadow 460ms ease, border-color 460ms ease;
+    }
+
+    .flow-node.step-item {
+      transform: translateY(calc(var(--lift, 0) + 24px)) scale(0.985);
+    }
+
+    .flow-node.step-item.is-past {
+      transform: translateY(var(--lift, 0)) scale(1);
+    }
+
+    .flow-node.step-item.is-active {
+      border-color: rgba(255, 50, 31, 0.34);
+      box-shadow: 0 28px 74px rgba(255, 50, 31, 0.14), 0 16px 46px rgba(37, 99, 235, 0.12);
+      transform: translateY(calc(var(--lift, 0) - 12px)) scale(1.025);
+    }
+
+    .flow-node.step-item.is-active .node-icon {
+      animation: nodePulse 1.2s ease-in-out infinite;
+    }
+
+    .flow-node:nth-child(2),
+    .flow-node:nth-child(4) {
+      --lift: 58px;
+    }
+
+    .node-icon {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border-radius: 20px;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--jet), var(--jet-soft));
+      box-shadow: 0 18px 38px rgba(255, 50, 31, 0.22);
+      font-size: 17px;
+      font-weight: 950;
+    }
+
+    .flow-node h3 {
+      margin-top: 34px;
+      font-size: 25px;
+      font-weight: 930;
+    }
+
+    .flow-node p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.58;
+      font-weight: 650;
+    }
+
+    .download-band {
+      color: var(--white);
+      background:
+        radial-gradient(circle at 76% 18%, rgba(0, 213, 255, 0.24), transparent 24%),
+        linear-gradient(135deg, #101828 0%, #172554 54%, #0f766e 100%);
+    }
+
+    .download-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.76fr) minmax(460px, 1.04fr);
+      gap: 68px;
+      align-items: center;
+    }
+
+    .download-band .kicker {
+      color: var(--cyan);
+    }
+
+    .download-band .section-copy {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    .download-console {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 32px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 34px 100px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(14px);
+    }
+
+    .download-version-summary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: rgba(255, 255, 255, 0.78);
+      background: rgba(255, 255, 255, 0.09);
+      font-size: 13px;
+      font-weight: 850;
+      backdrop-filter: blur(12px);
+    }
+
+    .download-version-summary::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 18px rgba(255, 200, 61, 0.62);
+    }
+
+    .download-card {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr) auto;
+      gap: 14px;
+      align-items: center;
+      border-radius: 22px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.09);
+      transition: opacity 460ms ease, transform 460ms ease, background 460ms ease, border-color 460ms ease;
+    }
+
+    .download-card.step-item.is-active {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(0) scale(1.02);
+    }
+
+    .download-band.is-active .download-card.step-item:not(.is-active):not(.is-past) {
+      opacity: 0.68;
+      transform: translateY(8px) scale(0.99);
+    }
+
+    .download-band.is-active .download-card.step-item.is-past {
+      opacity: 0.82;
+    }
+
+    .download-card.is-ready {
+      border-color: rgba(53, 224, 194, 0.26);
+    }
+
+    .download-card.is-error {
+      border-color: rgba(255, 200, 61, 0.24);
+    }
+
+    .download-card + .download-card {
+      margin-top: 12px;
+    }
+
+    .download-icon {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      place-items: center;
+      border-radius: 18px;
+      color: var(--ink);
+      background: var(--white);
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    .download-card h3 {
+      display: block;
+      margin: 0;
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    .download-card p {
+      display: block;
+      margin-top: 5px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .download-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 9px;
+    }
+
+    .download-meta span {
+      border-radius: 999px;
+      padding: 5px 8px;
+      color: rgba(255, 255, 255, 0.72);
+      background: rgba(255, 255, 255, 0.1);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .download-state {
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .download-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 96px;
+      min-height: 42px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 0 14px;
+      color: #07324a;
+      background: var(--white);
+      font-size: 13px;
+      font-weight: 950;
+      white-space: nowrap;
+      transition: opacity 180ms ease, transform 180ms ease, background 180ms ease;
+    }
+
+    .download-button:hover {
+      transform: translateY(-2px);
+      background: #eafffb;
+    }
+
+    .download-button.is-disabled {
+      pointer-events: none;
+      opacity: 0.55;
+    }
+
+    .future {
+      background: #ffffff;
+    }
+
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 56px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      background: var(--line);
+    }
+
+    .future-item {
+      min-height: 260px;
+      padding: 30px;
+      background: var(--white);
+      transition: opacity 460ms ease, transform 460ms ease, background 460ms ease;
+    }
+
+    .future-item.step-item.is-active {
+      background: linear-gradient(180deg, #ffffff, #fff4f1);
+    }
+
+    .future-item span {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--jet);
+      background: rgba(255, 50, 31, 0.07);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .future-item h3 {
+      margin-top: 48px;
+      font-size: 27px;
+      line-height: 1.18;
+      font-weight: 930;
+    }
+
+    .future-item p {
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.62;
+      font-weight: 650;
+    }
+
+    .final {
+      padding-top: 0;
+      background: #ffffff;
+    }
+
+    .final-poster {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+      padding: 72px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 82% 18%, rgba(0, 213, 255, 0.34), transparent 26%),
+        linear-gradient(135deg, var(--jet) 0%, #ff4a34 100%);
+    }
+
+    .final-poster::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(112deg, transparent 22%, rgba(255, 255, 255, 0.24) 42%, transparent 58%);
+      animation: lightSweep 9s ease-in-out infinite;
+    }
+
+    .final-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 28px;
+    }
+
+    .final h2 {
+      max-width: 760px;
+      margin: 0;
+    }
+
+    footer {
+      display: none;
+    }
+
+    .reveal:not(.step-item) {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 700ms ease, transform 700ms ease;
+    }
+
+    .reveal.is-visible:not(.step-item) {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-progress {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      z-index: 35;
+      display: grid;
+      gap: 10px;
+      transform: translateY(-50%);
+    }
+
+    .section-progress button {
+      width: 10px;
+      height: 10px;
+      border: 1px solid rgba(17, 24, 39, 0.22);
+      border-radius: 999px;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.56);
+      cursor: pointer;
+      transition: height 220ms ease, background 220ms ease, border-color 220ms ease;
+    }
+
+    .section-progress button.is-active {
+      height: 32px;
+      border-color: rgba(255, 50, 31, 0.45);
+      background: var(--jet);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes lightSweep {
+      0%, 100% { transform: translateX(-4%); opacity: 0.62; }
+      50% { transform: translateX(5%); opacity: 0.96; }
+    }
+
+    @keyframes orbit {
+      to { transform: rotate(348deg); }
+    }
+
+    @keyframes floatPhone {
+      0%, 100% { transform: rotate(-7deg) translateY(0); }
+      50% { transform: rotate(-5deg) translateY(-14px); }
+    }
+
+    @keyframes floatPanel {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(12px); }
+    }
+
+    @keyframes pulse {
+      70% { box-shadow: 0 0 0 11px rgba(32, 201, 151, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(32, 201, 151, 0); }
+    }
+
+    @keyframes rowSweep {
+      0%, 20% { transform: translateX(0); opacity: 0; }
+      45% { opacity: 1; }
+      100% { transform: translateX(350%); opacity: 0; }
+    }
+
+    @keyframes dash {
+      to { stroke-dashoffset: -280; }
+    }
+
+    @keyframes nodePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+
+    @media (max-width: 1120px) {
+      .topbar,
+      .hero-inner,
+      .section-inner,
+      footer {
+        width: min(1240px, calc(100% - 48px));
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .hero-inner,
+      .download-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-side {
+        min-height: 450px;
+      }
+
+      .hero-note {
+        left: 0;
+        right: auto;
+      }
+
+      .product-orbit {
+        right: 0;
+        left: auto;
+      }
+
+      h1 {
+        font-size: 82px;
+      }
+
+      h2 {
+        font-size: 52px;
+      }
+
+      .flow-nodes,
+      .future-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flow-node,
+      .flow-node:nth-child(2),
+      .flow-node:nth-child(4) {
+        min-height: auto;
+        transform: none;
+      }
+
+      .workflow-stage {
+        min-height: auto;
+      }
+
+      .workflow-svg {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .topbar,
+      .hero-inner,
+      .section-inner,
+      footer {
+        width: auto;
+        margin-left: 14px;
+        margin-right: 14px;
+      }
+
+      .topbar.is-scrolled {
+        left: 14px;
+        right: 14px;
+        width: auto;
+        margin: 12px 0 0;
+      }
+
+      .topbar {
+        padding: 18px 0;
+      }
+
+      .brand {
+        font-size: 21px;
+      }
+
+      .top-actions .btn:not(.light) {
+        display: none;
+      }
+
+      .btn {
+        min-height: 43px;
+        padding: 0 15px;
+        font-size: 14px;
+      }
+
+      .hero {
+        min-height: 760px;
+        height: 100svh;
+      }
+
+      .hero-inner {
+        height: 100%;
+        min-height: 0;
+        padding: 112px 0 118px;
+      }
+
+      h1 {
+        font-size: 50px;
+        line-height: 1.02;
+      }
+
+      .hero-text {
+        max-width: 330px;
+        font-size: 17px;
+      }
+
+      .hero-side {
+        min-height: 390px;
+      }
+
+      .hero-note {
+        position: relative;
+        max-width: 300px;
+        margin-bottom: 18px;
+        font-size: 16px;
+      }
+
+      .product-orbit {
+        position: relative;
+        width: 100%;
+        min-height: 370px;
+      }
+
+      .orbit-ring {
+        right: -80px;
+        width: 310px;
+        height: 310px;
+      }
+
+      .phone {
+        right: 128px;
+        top: 42px;
+        width: 142px;
+        height: 286px;
+        border-radius: 30px;
+      }
+
+      .automation-panel {
+        right: 0;
+        bottom: 12px;
+        width: min(100%, 286px);
+        border-radius: 22px;
+        padding: 14px;
+      }
+
+      .task-row {
+        grid-template-columns: 34px 1fr;
+      }
+
+      .task-pill {
+        display: none;
+      }
+
+      .hero-dock {
+        left: 14px;
+        right: 14px;
+        bottom: 16px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        transform: none;
+      }
+
+      .hero-dock a,
+      .hero-dock span {
+        flex: 0 0 auto;
+      }
+
+      section {
+        padding: 68px 0;
+      }
+
+      h2 {
+        font-size: 34px;
+        line-height: 1.08;
+        word-break: break-all;
+      }
+
+      .section-copy {
+        font-size: 16px;
+        overflow-wrap: anywhere;
+        word-break: break-all;
+      }
+
+      .feature-lane {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 28px 0;
+      }
+
+      .lane-chip {
+        justify-self: start;
+      }
+
+      .workflow-stage,
+      .future-grid,
+      .final-poster {
+        border-radius: 24px;
+      }
+
+      .flow-nodes {
+        padding: 18px;
+      }
+
+      .flow-node {
+        padding: 18px;
+      }
+
+      .download-layout {
+        gap: 36px;
+      }
+
+      .download-card {
+        grid-template-columns: 46px 1fr;
+      }
+
+      .download-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 15px;
+      }
+
+      .download-button {
+        grid-column: 2;
+        justify-self: start;
+        min-width: 88px;
+      }
+
+      .future-item {
+        min-height: auto;
+        padding: 24px;
+      }
+
+      .future-item h3 {
+        margin-top: 34px;
+      }
+
+      .final-poster {
+        padding: 34px 24px;
+      }
+
+      .final-content {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .section-progress {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
+    /* App palette comparison version: match the desktop icon instead of the red-orange poster palette. */
+    :root {
+      --jet: #35e0c2;
+      --jet-deep: #003b5c;
+      --jet-soft: #1ca7ec;
+      --ink: #0b2235;
+      --muted: #607789;
+      --line: rgba(8, 55, 82, 0.13);
+      --paper: #f4fbff;
+      --blue: #1ca7ec;
+      --cyan: #35e0c2;
+      --green: #35e0c2;
+      --amber: #ffc83d;
+      --rose: #ff5a3d;
+      --action: #ff5a3d;
+      --navy: #003b5c;
+      --navy-deep: #061c2f;
+    }
+
+    html,
+    body {
+      background: var(--paper);
+    }
+
+    .topbar.is-scrolled {
+      background: rgba(248, 253, 255, 0.9);
+      box-shadow: 0 18px 54px rgba(8, 55, 82, 0.13);
+    }
+
+    .brand-mark {
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 16px 34px rgba(1, 21, 37, 0.26), inset 0 0 0 1px rgba(255, 255, 255, 0.72);
+    }
+
+    .btn {
+      border-color: rgba(255, 255, 255, 0.24);
+      box-shadow: 0 18px 50px rgba(1, 21, 37, 0.24);
+    }
+
+    .btn.light {
+      color: var(--action);
+      background: var(--white);
+      box-shadow: 0 18px 46px rgba(1, 21, 37, 0.22);
+    }
+
+    .topbar.is-scrolled .btn.light {
+      color: var(--white);
+      background: var(--action);
+      box-shadow: 0 12px 30px rgba(255, 90, 61, 0.22);
+    }
+
+    .hero {
+      background:
+        radial-gradient(circle at 84% 18%, rgba(255, 200, 61, 0.22) 0, transparent 20%),
+        radial-gradient(circle at 76% 30%, rgba(53, 224, 194, 0.46) 0, transparent 25%),
+        radial-gradient(circle at 55% 78%, rgba(28, 167, 236, 0.38) 0, transparent 30%),
+        linear-gradient(132deg, #00324e 0%, #005f7d 48%, #0c9a92 100%);
+    }
+
+    .hero::before {
+      background:
+        linear-gradient(115deg, transparent 0%, transparent 34%, rgba(255, 255, 255, 0.14) 45%, transparent 56%),
+        linear-gradient(74deg, transparent 12%, rgba(53, 224, 194, 0.22) 36%, transparent 58%),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.055) 0, rgba(255, 255, 255, 0.055) 1px, transparent 1px, transparent 78px);
+      opacity: 0.86;
+    }
+
+    .hero::after {
+      background: linear-gradient(180deg, transparent, rgba(1, 25, 42, 0.36));
+    }
+
+    .phone {
+      box-shadow: 0 42px 100px rgba(1, 21, 37, 0.42), inset 0 0 0 1px rgba(8, 55, 82, 0.08);
+    }
+
+    .feed-card i {
+      background: linear-gradient(135deg, rgba(28, 167, 236, 0.18), rgba(53, 224, 194, 0.24), rgba(255, 200, 61, 0.16));
+    }
+
+    .automation-panel {
+      box-shadow: 0 38px 90px rgba(1, 21, 37, 0.34);
+    }
+
+    .task-icon,
+    .node-icon {
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      box-shadow: 0 18px 38px rgba(28, 167, 236, 0.22);
+    }
+
+    .task-pill {
+      color: #007ea7;
+      background: rgba(53, 224, 194, 0.14);
+    }
+
+    .hero-dock {
+      box-shadow: 0 18px 50px rgba(1, 21, 37, 0.24);
+    }
+
+    .hero-dock span {
+      color: var(--blue);
+    }
+
+    .kicker {
+      color: #007ea7;
+    }
+
+    .step-status {
+      border-color: rgba(53, 224, 194, 0.32);
+      color: #007ea7;
+      box-shadow: 0 18px 54px rgba(8, 55, 82, 0.11);
+    }
+
+    .feature-lane::before {
+      background: linear-gradient(180deg, var(--cyan), var(--blue));
+      box-shadow: 0 0 28px rgba(53, 224, 194, 0.45);
+    }
+
+    .feature-lane.step-item.is-active {
+      border-color: rgba(53, 224, 194, 0.32);
+      background: linear-gradient(90deg, rgba(53, 224, 194, 0.13), rgba(255, 255, 255, 0));
+      box-shadow: 0 24px 58px rgba(28, 167, 236, 0.12);
+    }
+
+    .feature-lane.step-item.is-active .lane-chip {
+      border-color: #007ea7;
+      background: #007ea7;
+      box-shadow: 0 14px 30px rgba(28, 167, 236, 0.2);
+    }
+
+    .lane-chip {
+      color: #007ea7;
+      border-color: rgba(28, 167, 236, 0.22);
+      background: rgba(53, 224, 194, 0.08);
+    }
+
+    .workflow-section {
+      background: linear-gradient(180deg, #f4fbff 0%, #ffffff 30%, #ecfcff 100%);
+    }
+
+    .workflow-stage {
+      background:
+        radial-gradient(circle at 70% 28%, rgba(53, 224, 194, 0.24), transparent 30%),
+        linear-gradient(145deg, #ffffff 0%, #f2fbff 100%);
+      box-shadow: inset 0 0 0 1px rgba(28, 167, 236, 0.1), 0 42px 110px rgba(8, 55, 82, 0.14);
+    }
+
+    .workflow-stage::before {
+      background:
+        linear-gradient(rgba(28, 167, 236, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28, 167, 236, 0.055) 1px, transparent 1px);
+      background-size: 44px 44px;
+    }
+
+    #flowGradient stop:nth-child(1) {
+      stop-color: var(--amber);
+    }
+
+    #flowGradient stop:nth-child(2) {
+      stop-color: var(--blue);
+    }
+
+    #flowGradient stop:nth-child(3) {
+      stop-color: var(--cyan);
+    }
+
+    .workflow-svg path {
+      filter: drop-shadow(0 0 10px rgba(53, 224, 194, 0.52));
+    }
+
+    .flow-node {
+      border-color: rgba(28, 167, 236, 0.13);
+      box-shadow: 0 20px 58px rgba(8, 55, 82, 0.08);
+    }
+
+    .flow-node.step-item.is-active {
+      border-color: rgba(53, 224, 194, 0.42);
+      box-shadow: 0 28px 74px rgba(53, 224, 194, 0.14), 0 16px 46px rgba(28, 167, 236, 0.12);
+    }
+
+    .download-band {
+      background:
+        radial-gradient(circle at 78% 18%, rgba(255, 200, 61, 0.2), transparent 24%),
+        radial-gradient(circle at 70% 70%, rgba(53, 224, 194, 0.22), transparent 26%),
+        linear-gradient(135deg, #042740 0%, #005273 54%, #0a8983 100%);
+    }
+
+    .download-console {
+      box-shadow: 0 34px 100px rgba(1, 12, 24, 0.32);
+    }
+
+    .download-icon {
+      color: var(--navy);
+    }
+
+    .future,
+    .final {
+      background: #f8fdff;
+    }
+
+    .future-grid {
+      border-color: rgba(8, 55, 82, 0.12);
+      background: rgba(8, 55, 82, 0.12);
+    }
+
+    .future-item.step-item.is-active {
+      background: linear-gradient(180deg, #ffffff, #eefcff);
+    }
+
+    .future-item span {
+      color: #007ea7;
+      background: rgba(53, 224, 194, 0.11);
+    }
+
+    .final-poster {
+      background:
+        radial-gradient(circle at 80% 18%, rgba(255, 200, 61, 0.23), transparent 26%),
+        radial-gradient(circle at 72% 74%, rgba(53, 224, 194, 0.25), transparent 26%),
+        linear-gradient(135deg, #042740 0%, #005273 56%, #0a8983 100%);
+    }
+
+    .final-poster::before {
+      background: linear-gradient(112deg, transparent 22%, rgba(255, 255, 255, 0.14) 42%, transparent 58%);
+    }
+
+    .section-progress button.is-active {
+      border-color: rgba(53, 224, 194, 0.5);
+      background: var(--cyan);
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="BestEar RPA">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="assets/icon.png" alt="">
+        </span>
+        <span>BestEar</span>
+      </a>
+      <nav class="nav" aria-label="主要导航">
+        <a href="#capabilities">RPA</a>
+        <a href="#workflow">流程</a>
+        <a href="#download">下载</a>
+        <a href="#roadmap">AI 规划</a>
+      </nav>
+      <div class="top-actions">
+        <a class="btn" href="#workflow">看流程</a>
+        <a class="btn light" href="#start">开始</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero snap-section" data-screen="hero" aria-label="BestEar RPA 宣传首屏">
+        <div class="hero-inner">
+          <div class="hero-copy reveal">
+            <div class="eyebrow">Android RPA Platform</div>
+            <h1>
+              <span class="hero-line">BestEar</span>
+              <span class="hero-line">RPA</span>
+            </h1>
+            <p class="hero-text">一套安卓自动化工作台，跑养号、发布、下载和任务回写。</p>
+            <div class="hero-actions">
+              <a class="btn light" href="#capabilities">查看能力</a>
+              <a class="btn" href="#download">视频下载</a>
+            </div>
+          </div>
+
+          <div class="hero-side reveal">
+            <p class="hero-note">把运营动作编成流程，真机自动执行，结果回到任务中心。</p>
+            <div class="product-orbit" aria-label="RPA 产品视觉">
+              <div class="orbit-ring" aria-hidden="true"></div>
+              <div class="phone" aria-hidden="true">
+                <div class="phone-screen">
+                  <div class="feed-card"><i></i><span></span><span></span></div>
+                  <div class="feed-card"><i></i><span></span><span></span></div>
+                </div>
+              </div>
+              <div class="automation-panel" aria-hidden="true">
+                <div class="panel-head">
+                  <strong>Flow Center</strong>
+                  <span class="status">Live</span>
+                </div>
+                <div class="task-row" style="--delay: 0s">
+                  <span class="task-icon">养</span>
+                  <span><b>小红书养号</b><small>浏览 / 等待 / 互动</small></span>
+                  <em class="task-pill">运行</em>
+                </div>
+                <div class="task-row" style="--delay: 0.7s">
+                  <span class="task-icon">发</span>
+                  <span><b>自动发布</b><small>素材 / 标题 / 回写</small></span>
+                  <em class="task-pill">排队</em>
+                </div>
+                <div class="task-row" style="--delay: 1.4s">
+                  <span class="task-icon">下</span>
+                  <span><b>视频下载</b><small>链接 / 路径 / 记录</small></span>
+                  <em class="task-pill">68%</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-dock" aria-label="快捷入口">
+          <span>⌂</span>
+          <a href="#capabilities">养号</a>
+          <a href="#capabilities">发布</a>
+          <a href="#workflow">安卓流程</a>
+          <a href="#download">视频下载</a>
+        </div>
+      </section>
+
+      <section class="snap-section" id="capabilities" data-screen="capabilities" data-step-selector=".feature-lane">
+        <div class="section-inner">
+          <div class="kicker reveal">RPA Core</div>
+          <h2 class="reveal">四类动作，拼成一条流程。</h2>
+          <p class="section-copy reveal">BestEar 把安卓操作拆成节点，运营人员可以自己组织流程。</p>
+
+          <div class="feature-lanes">
+            <article class="feature-lane reveal">
+              <div class="lane-num">01</div>
+              <div>
+                <h3>小红书养号</h3>
+                <p>浏览、搜索、互动、等待，按节奏执行。</p>
+              </div>
+              <span class="lane-chip">账号运营</span>
+            </article>
+            <article class="feature-lane reveal">
+              <div class="lane-num">02</div>
+              <div>
+                <h3>自动发小红书</h3>
+                <p>素材、标题、图文发布和结果回写。</p>
+              </div>
+              <span class="lane-chip">内容发布</span>
+            </article>
+            <article class="feature-lane reveal">
+              <div class="lane-num">03</div>
+              <div>
+                <h3>任意安卓 App 流程</h3>
+                <p>页面、元素、点击、输入，自行编排。</p>
+              </div>
+              <span class="lane-chip">通用 RPA</span>
+            </article>
+            <article class="feature-lane reveal">
+              <div class="lane-num">04</div>
+              <div>
+                <h3>视频下载</h3>
+                <p>链接解析、下载保存、路径记录。</p>
+              </div>
+              <span class="lane-chip">下载能力</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="workflow-section snap-section" id="workflow" data-screen="workflow" data-step-selector=".flow-node">
+        <div class="section-inner">
+          <div class="kicker reveal">Workflow Runtime</div>
+          <h2 class="reveal">流程从设计到回写，形成闭环。</h2>
+          <div class="workflow-stage reveal" aria-label="RPA 闭环流程图">
+            <svg class="workflow-svg" viewBox="0 0 1200 520" role="presentation" aria-hidden="true">
+              <defs>
+                <linearGradient id="flowGradient" x1="0" x2="1" y1="0" y2="0">
+                  <stop offset="0" stop-color="#ff321f"></stop>
+                  <stop offset="0.48" stop-color="#2563eb"></stop>
+                  <stop offset="1" stop-color="#00d5ff"></stop>
+                </linearGradient>
+              </defs>
+              <path d="M92 260 C 244 118, 344 120, 468 260 S 690 410, 812 260 S 980 110, 1112 260"></path>
+            </svg>
+            <div class="flow-nodes">
+              <article class="flow-node">
+                <div class="node-icon">编</div>
+                <h3>编排</h3>
+                <p>页面、元素、动作和参数组合成流程。</p>
+              </article>
+              <article class="flow-node">
+                <div class="node-icon">检</div>
+                <h3>预检</h3>
+                <p>先校验步骤、设备和运行条件。</p>
+              </article>
+              <article class="flow-node">
+                <div class="node-icon">跑</div>
+                <h3>执行</h3>
+                <p>安卓真机按流程自动操作 App。</p>
+              </article>
+              <article class="flow-node">
+                <div class="node-icon">回</div>
+                <h3>回写</h3>
+                <p>状态、日志、失败原因进入任务中心。</p>
+              </article>
+              <article class="flow-node">
+                <div class="node-icon">产</div>
+                <h3>产出</h3>
+                <p>完成发布、下载或内容处理结果。</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="download-band snap-section" id="download" data-screen="download" data-step-selector=".download-card">
+        <div class="section-inner download-layout">
+          <div>
+            <div class="kicker reveal">Download Center</div>
+            <h2 class="reveal">下载 BestEar，选择你的系统版本。</h2>
+            <p class="section-copy reveal">官网会从版本接口读取最新安装包，分别展示 macOS M 系列、macOS Intel 和 Windows 版本。</p>
+            <div class="download-version-summary reveal" data-release-summary>正在获取最新版本</div>
+          </div>
+          <div class="download-console reveal" aria-label="BestEar 安装包下载">
+            <article class="download-card" data-platform-card="macos-arm64">
+              <span class="download-icon">M</span>
+              <div>
+                <h3>苹果 Mac · M 系列</h3>
+                <p>适用于 Apple Silicon，M1 / M2 / M3 / M4 芯片。</p>
+                <div class="download-meta">
+                  <span data-release-version>版本读取中</span>
+                  <span data-release-size>安装包</span>
+                </div>
+              </div>
+              <a class="download-button is-disabled" data-download-link href="#" aria-disabled="true">获取中</a>
+            </article>
+            <article class="download-card" data-platform-card="macos-x64">
+              <span class="download-icon">I</span>
+              <div>
+                <h3>苹果 Mac · Intel</h3>
+                <p>适用于 Intel 芯片 Mac，下载 x64 安装包。</p>
+                <div class="download-meta">
+                  <span data-release-version>版本读取中</span>
+                  <span data-release-size>安装包</span>
+                </div>
+              </div>
+              <a class="download-button is-disabled" data-download-link href="#" aria-disabled="true">获取中</a>
+            </article>
+            <article class="download-card" data-platform-card="win-x64">
+              <span class="download-icon">W</span>
+              <div>
+                <h3>Windows 系统</h3>
+                <p>适用于 Windows 10 / 11，64 位系统。</p>
+                <div class="download-meta">
+                  <span data-release-version>版本读取中</span>
+                  <span data-release-size>安装包</span>
+                </div>
+              </div>
+              <a class="download-button is-disabled" data-download-link href="#" aria-disabled="true">获取中</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="future snap-section" id="roadmap" data-screen="roadmap" data-step-selector=".future-item">
+        <div class="section-inner">
+          <div class="kicker reveal">AI Roadmap</div>
+          <h2 class="reveal">自动化之后，接上内容生产。</h2>
+          <div class="future-grid">
+            <article class="future-item reveal">
+              <span>规划中</span>
+              <h3>AI 写小红书</h3>
+              <p>结合账号定位、素材和发布流程生成笔记。</p>
+            </article>
+            <article class="future-item reveal">
+              <span>规划中</span>
+              <h3>AI 写文章</h3>
+              <p>为公众号、官网和长文内容提供初稿。</p>
+            </article>
+            <article class="future-item reveal">
+              <span>可扩展</span>
+              <h3>流程模板市场</h3>
+              <p>沉淀可复用的安卓 App 自动化流程。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="final snap-section" id="start" data-screen="start">
+        <div class="section-inner">
+          <div class="final-poster reveal">
+            <div class="final-content">
+              <h2>从一个安卓流程开始，把重复运营交给 BestEar。</h2>
+              <a class="btn light" href="#top">回到首屏</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="section-progress" aria-label="整屏进度"></nav>
+
+    <footer>
+      BestEar RPA Landing Page · Jeton-inspired bright technology poster · Single-file prototype
+    </footer>
+  </div>
+
+  <script>
+    const topbar = document.querySelector(".topbar");
+    const sections = Array.from(document.querySelectorAll(".snap-section"));
+    const progress = document.querySelector(".section-progress");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const stepPauseMs = reduceMotion ? 80 : 620;
+    const pagePauseMs = reduceMotion ? 80 : 840;
+    let currentIndex = 0;
+    let isLocked = false;
+    let touchStartY = 0;
+
+    const sectionLabels = ["首屏", "RPA", "流程", "下载", "AI", "开始"];
+    const releaseConfig = {
+      appId: "bestear-desktop",
+      channel: "stable",
+      endpoint: "/api/public/app-releases/downloads",
+      baseUrl: "https://mtenant.lizhitech.com",
+      ...(window.BESTEAR_RELEASE_CONFIG || {}),
+    };
+    const releasePlatforms = [
+      { key: "macos-arm64", label: "苹果 M 系列" },
+      { key: "macos-x64", label: "苹果 Intel" },
+      { key: "win-x64", label: "Windows" },
+    ];
+
+    sections.forEach((section, sectionIndex) => {
+      const selector = section.dataset.stepSelector;
+      const stepItems = selector ? Array.from(section.querySelectorAll(selector)) : [];
+      section._stepItems = stepItems;
+      section.dataset.step = "0";
+      stepItems.forEach((item, itemIndex) => {
+        item.classList.add("step-item");
+        item.style.transitionDelay = `${Math.min(itemIndex * 70, 210)}ms`;
+      });
+      if (stepItems.length) {
+        const status = document.createElement("div");
+        status.className = "step-status";
+        section.appendChild(status);
+        section._stepStatus = status;
+      }
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.setAttribute("aria-label", sectionLabels[sectionIndex] || `第 ${sectionIndex + 1} 屏`);
+      button.addEventListener("click", () => goToSection(sectionIndex, 0, { resetStep: true }));
+      progress.appendChild(button);
+    });
+
+    const clamp = (value, min, max) => Math.max(min, Math.min(value, max));
+
+    const setStep = (section, step) => {
+      const items = section._stepItems || [];
+      if (!items.length) {
+        return;
+      }
+      const nextStep = clamp(step, 0, items.length - 1);
+      section.dataset.step = String(nextStep);
+      items.forEach((item, index) => {
+        item.classList.toggle("is-active", index === nextStep);
+        item.classList.toggle("is-past", index < nextStep);
+      });
+      if (section._stepStatus) {
+        const activeItem = items[nextStep];
+        const title = activeItem.querySelector("h3, b")?.textContent?.trim() || "当前动作";
+        section._stepStatus.textContent = `当前动作 ${nextStep + 1}/${items.length} · ${title}`;
+      }
+    };
+
+    const updateActiveState = () => {
+      sections.forEach((section, index) => {
+        const isActive = index === currentIndex;
+        section.classList.toggle("is-active", isActive);
+        section.querySelectorAll(".reveal").forEach((node) => {
+          node.classList.toggle("is-visible", isActive);
+        });
+      });
+
+      Array.from(progress.children).forEach((button, index) => {
+        button.classList.toggle("is-active", index === currentIndex);
+      });
+
+      topbar.classList.toggle("is-scrolled", currentIndex > 0);
+    };
+
+    const updateHash = () => {
+      const section = sections[currentIndex];
+      const hash = currentIndex === 0 ? "#top" : `#${section.id}`;
+      if (window.location.hash !== hash) {
+        history.replaceState(null, "", hash);
+      }
+    };
+
+    const scrollToCurrent = (behavior = "smooth") => {
+      const top = sections[currentIndex].offsetTop;
+      window.scrollTo({ top, behavior: reduceMotion ? "auto" : behavior });
+    };
+
+    const releaseLockAfter = (ms) => {
+      window.setTimeout(() => {
+        isLocked = false;
+      }, ms);
+    };
+
+    const goToSection = (targetIndex, direction = 1, options = {}) => {
+      const nextIndex = clamp(targetIndex, 0, sections.length - 1);
+      if (nextIndex === currentIndex && !options.force) {
+        return;
+      }
+
+      isLocked = true;
+      currentIndex = nextIndex;
+      const activeSection = sections[currentIndex];
+      const items = activeSection._stepItems || [];
+      if (items.length) {
+        const step = options.resetStep ? 0 : direction < 0 ? items.length - 1 : 0;
+        setStep(activeSection, step);
+      }
+      updateActiveState();
+      updateHash();
+      scrollToCurrent(options.behavior || "smooth");
+      releaseLockAfter(pagePauseMs);
+    };
+
+    const advanceWithinSection = (direction) => {
+      const activeSection = sections[currentIndex];
+      const items = activeSection._stepItems || [];
+      if (!items.length) {
+        return false;
+      }
+
+      const currentStep = Number(activeSection.dataset.step || "0");
+      const nextStep = currentStep + direction;
+      if (nextStep < 0 || nextStep >= items.length) {
+        return false;
+      }
+
+      isLocked = true;
+      setStep(activeSection, nextStep);
+      releaseLockAfter(stepPauseMs);
+      return true;
+    };
+
+    const move = (direction) => {
+      if (isLocked || direction === 0) {
+        return;
+      }
+      if (advanceWithinSection(direction)) {
+        return;
+      }
+      goToSection(currentIndex + direction, direction);
+    };
+
+    window.addEventListener("wheel", (event) => {
+      const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      if (Math.abs(delta) < 8) {
+        return;
+      }
+      event.preventDefault();
+      move(delta > 0 ? 1 : -1);
+    }, { passive: false });
+
+    window.addEventListener("keydown", (event) => {
+      const downKeys = ["ArrowDown", "PageDown", " ", "Enter"];
+      const upKeys = ["ArrowUp", "PageUp"];
+      if (!downKeys.includes(event.key) && !upKeys.includes(event.key)) {
+        return;
+      }
+      event.preventDefault();
+      move(downKeys.includes(event.key) ? 1 : -1);
+    });
+
+    window.addEventListener("touchstart", (event) => {
+      touchStartY = event.touches[0]?.clientY || 0;
+    }, { passive: true });
+
+    window.addEventListener("touchmove", (event) => {
+      event.preventDefault();
+    }, { passive: false });
+
+    window.addEventListener("touchend", (event) => {
+      const touchEndY = event.changedTouches[0]?.clientY || 0;
+      const distance = touchStartY - touchEndY;
+      if (Math.abs(distance) > 36) {
+        move(distance > 0 ? 1 : -1);
+      }
+    }, { passive: true });
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const hash = link.getAttribute("href");
+        const targetIndex = hash === "#top"
+          ? 0
+          : sections.findIndex((section) => `#${section.id}` === hash);
+        if (targetIndex >= 0) {
+          event.preventDefault();
+          goToSection(targetIndex, targetIndex >= currentIndex ? 1 : -1, { resetStep: true });
+        }
+      });
+    });
+
+    const initialHash = window.location.hash || "#top";
+    const initialIndex = initialHash === "#top"
+      ? 0
+      : sections.findIndex((section) => `#${section.id}` === initialHash);
+    currentIndex = initialIndex >= 0 ? initialIndex : 0;
+    sections.forEach((section) => setStep(section, 0));
+    updateActiveState();
+    scrollToCurrent("auto");
+
+    window.addEventListener("resize", () => scrollToCurrent("auto"));
+
+    const formatBytes = (value) => {
+      const size = Number(value || 0);
+      if (!Number.isFinite(size) || size <= 0) {
+        return "安装包";
+      }
+      const units = ["B", "KB", "MB", "GB"];
+      let nextSize = size;
+      let unitIndex = 0;
+      while (nextSize >= 1024 && unitIndex < units.length - 1) {
+        nextSize /= 1024;
+        unitIndex += 1;
+      }
+      const digits = unitIndex === 0 ? 0 : 1;
+      return `${nextSize.toFixed(digits)} ${units[unitIndex]}`;
+    };
+
+    const buildReleaseDownloadsUrl = () => {
+      const endpoint = String(releaseConfig.endpoint || "/api/public/app-releases/downloads").trim();
+      const baseUrl = String(releaseConfig.baseUrl || "").trim().replace(/\/+$/, "");
+      if (!baseUrl && window.location.protocol === "file:") {
+        throw new Error("请配置版本接口地址");
+      }
+      const url = endpoint.startsWith("http://") || endpoint.startsWith("https://")
+        ? new URL(endpoint)
+        : new URL(endpoint, baseUrl || window.location.origin);
+      url.searchParams.set("app_id", releaseConfig.appId || "bestear-desktop");
+      url.searchParams.set("channel", releaseConfig.channel || "stable");
+      releasePlatforms.forEach((platform) => {
+        url.searchParams.append("platform_key", platform.key);
+      });
+      return url;
+    };
+
+    const fetchPublicDownloads = async () => {
+      const response = await fetch(buildReleaseDownloadsUrl());
+      const payload = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(payload?.detail || payload?.message || `下载接口异常 ${response.status}`);
+      }
+      return Array.isArray(payload?.items) ? payload.items : [];
+    };
+
+    const renderDownloadCard = (platform, result) => {
+      const card = document.querySelector(`[data-platform-card="${platform.key}"]`);
+      if (!card) {
+        return;
+      }
+      const link = card.querySelector("[data-download-link]");
+      card.classList.add("is-ready");
+      card.classList.remove("is-error");
+      card.querySelector("[data-release-version]").textContent = `v${result.version}`;
+      card.querySelector("[data-release-size]").textContent = formatBytes(result.size);
+      link.href = result.downloadUrl;
+      link.textContent = "下载";
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.classList.remove("is-disabled");
+      link.setAttribute("aria-disabled", "false");
+    };
+
+    const renderDownloadError = (platform, error) => {
+      const card = document.querySelector(`[data-platform-card="${platform.key}"]`);
+      if (!card) {
+        return;
+      }
+      const link = card.querySelector("[data-download-link]");
+      card.classList.add("is-error");
+      card.classList.remove("is-ready");
+      card.querySelector("[data-release-version]").textContent = platform.label;
+      card.querySelector("[data-release-size]").textContent = error.message || "暂不可用";
+      link.removeAttribute("href");
+      link.textContent = "未开放";
+      link.classList.add("is-disabled");
+      link.setAttribute("aria-disabled", "true");
+    };
+
+    const loadLatestDownloads = async () => {
+      const summary = document.querySelector("[data-release-summary]");
+      try {
+        const items = await fetchPublicDownloads();
+        const itemByPlatform = new Map(items.map((item) => [item.platform_key, item]));
+        const readyItems = [];
+        releasePlatforms.forEach((platform) => {
+          const item = itemByPlatform.get(platform.key);
+          if (item?.download_url) {
+            const result = {
+              version: item.version || "最新版",
+              fileName: item.file_name || "BestEar",
+              size: item.size_bytes || 0,
+              downloadUrl: item.download_url,
+            };
+            readyItems.push(result);
+            renderDownloadCard(platform, result);
+            return;
+          }
+          renderDownloadError(platform, new Error("暂无安装包"));
+        });
+        if (!summary) {
+          return;
+        }
+        if (!readyItems.length) {
+          summary.textContent = "暂未获取到可用安装包";
+          return;
+        }
+        const versions = Array.from(new Set(readyItems.map((item) => item.version)));
+        summary.textContent = `已获取 ${readyItems.length}/${releasePlatforms.length} 个平台 · 最新版本 ${versions.join(" / ")}`;
+      } catch (error) {
+        releasePlatforms.forEach((platform) => renderDownloadError(platform, error));
+        if (summary) {
+          summary.textContent = "暂未连接下载接口，部署后会自动显示最新版";
+        }
+      }
+    };
+
+    loadLatestDownloads();
+  </script>
+</body>
+</html>
