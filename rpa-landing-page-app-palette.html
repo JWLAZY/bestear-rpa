@@ -689,30 +689,6 @@
       font-weight: 650;
     }
 
-    .step-status {
-      position: absolute;
-      right: max(96px, calc((100vw - 1240px) / 2));
-      top: 132px;
-      z-index: 5;
-      display: none;
-      min-width: 220px;
-      border: 1px solid rgba(255, 50, 31, 0.18);
-      border-radius: 999px;
-      padding: 10px 14px;
-      color: var(--jet);
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: 0 18px 54px rgba(17, 24, 39, 0.09);
-      backdrop-filter: blur(16px);
-      font-size: 13px;
-      font-weight: 950;
-      text-align: center;
-      pointer-events: none;
-    }
-
-    .snap-section.is-active .step-status {
-      display: block;
-    }
-
     .feature-lanes {
       margin-top: 58px;
       border-top: 1px solid var(--line);
@@ -1658,12 +1634,6 @@
       color: #007ea7;
     }
 
-    .step-status {
-      border-color: rgba(53, 224, 194, 0.32);
-      color: #007ea7;
-      box-shadow: 0 18px 54px rgba(8, 55, 82, 0.11);
-    }
-
     .feature-lane::before {
       background: linear-gradient(180deg, var(--cyan), var(--blue));
       box-shadow: 0 0 28px rgba(53, 224, 194, 0.45);
@@ -2077,13 +2047,6 @@
         item.classList.add("step-item");
         item.style.transitionDelay = `${Math.min(itemIndex * 70, 210)}ms`;
       });
-      if (stepItems.length) {
-        const status = document.createElement("div");
-        status.className = "step-status";
-        section.appendChild(status);
-        section._stepStatus = status;
-      }
-
       const button = document.createElement("button");
       button.type = "button";
       button.setAttribute("aria-label", sectionLabels[sectionIndex] || `第 ${sectionIndex + 1} 屏`);
@@ -2104,11 +2067,6 @@
         item.classList.toggle("is-active", index === nextStep);
         item.classList.toggle("is-past", index < nextStep);
       });
-      if (section._stepStatus) {
-        const activeItem = items[nextStep];
-        const title = activeItem.querySelector("h3, b")?.textContent?.trim() || "当前动作";
-        section._stepStatus.textContent = `当前动作 ${nextStep + 1}/${items.length} · ${title}`;
-      }
     };
 
     const updateActiveState = () => {
