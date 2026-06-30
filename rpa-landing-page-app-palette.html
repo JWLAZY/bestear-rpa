@@ -673,48 +673,6 @@
       font-weight: 850;
     }
 
-    .hero-dock {
-      position: absolute;
-      left: 50%;
-      bottom: 28px;
-      z-index: 4;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      max-width: min(92vw, 640px);
-      padding: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 999px;
-      color: rgba(255, 255, 255, 0.84);
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(18px);
-      transform: translateX(-50%);
-      box-shadow: 0 18px 50px rgba(126, 17, 10, 0.16);
-    }
-
-    .hero-dock a,
-    .hero-dock span {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 42px;
-      border-radius: 999px;
-      padding: 0 17px;
-      font-size: 14px;
-      font-weight: 850;
-    }
-
-    .hero-dock span {
-      width: 48px;
-      padding: 0;
-      color: var(--jet);
-      background: rgba(255, 255, 255, 0.9);
-    }
-
-    .hero-dock a:hover {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
     main > section {
       min-height: 100svh;
       scroll-snap-align: start;
@@ -1537,20 +1495,6 @@
         display: none;
       }
 
-      .hero-dock {
-        left: 14px;
-        right: 14px;
-        bottom: 16px;
-        justify-content: flex-start;
-        overflow-x: auto;
-        transform: none;
-      }
-
-      .hero-dock a,
-      .hero-dock span {
-        flex: 0 0 auto;
-      }
-
       section {
         padding: 68px 0;
       }
@@ -1737,14 +1681,6 @@
     .task-pill {
       color: #007ea7;
       background: rgba(53, 224, 194, 0.14);
-    }
-
-    .hero-dock {
-      box-shadow: 0 18px 50px rgba(1, 21, 37, 0.24);
-    }
-
-    .hero-dock span {
-      color: var(--blue);
     }
 
     .kicker {
@@ -1956,13 +1892,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="hero-dock" aria-label="快捷入口">
-          <span>⌂</span>
-          <a href="#capabilities">养号</a>
-          <a href="#capabilities">发布</a>
-          <a href="#workflow">安卓流程</a>
-          <a href="#download">视频下载</a>
         </div>
       </section>
 
