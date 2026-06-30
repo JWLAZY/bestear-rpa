@@ -1368,7 +1368,16 @@
     @media (max-width: 720px) {
       html,
       body {
-        min-height: var(--bestear-vh);
+        min-height: 100%;
+        overscroll-behavior-y: auto;
+      }
+
+      .page {
+        overflow: visible;
+      }
+
+      main {
+        scroll-snap-type: none;
       }
 
       .topbar,
@@ -1406,14 +1415,15 @@
       }
 
       .hero {
-        min-height: 760px;
-        height: var(--bestear-vh);
+        min-height: auto;
+        height: auto;
+        padding: 0;
       }
 
       .hero-inner {
-        height: 100%;
+        height: auto;
         min-height: 0;
-        padding: 112px 0 118px;
+        padding: 112px 0 74px;
       }
 
       h1 {
@@ -1502,29 +1512,98 @@
       }
 
       main > section {
-        min-height: var(--bestear-vh);
-        height: var(--bestear-vh);
+        min-height: auto;
+        height: auto;
+        scroll-margin-top: 96px;
+        scroll-snap-align: none;
+        scroll-snap-stop: normal;
       }
 
       main > section:not(.hero) {
-        align-items: stretch;
-        min-height: var(--bestear-vh);
-        height: var(--bestear-vh);
-        overflow: hidden;
+        display: block;
+        align-items: initial;
+        min-height: 0;
+        height: auto;
+        overflow: visible;
+        padding: 92px 0 82px;
       }
 
       .snap-section:not(.hero) .section-inner {
-        max-height: var(--bestear-vh);
-        padding-top: 118px;
-        padding-bottom: max(118px, calc(env(safe-area-inset-bottom) + 118px));
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
+        max-height: none;
+        padding-top: 0;
+        padding-bottom: 0;
+        overflow: visible;
+        overscroll-behavior: auto;
       }
 
-      .snap-section:not(.hero) .section-inner::-webkit-scrollbar {
-        display: none;
+      .snap-section,
+      .snap-section:not(.is-active) {
+        opacity: 1;
+        transform: none;
+      }
+
+      .reveal:not(.step-item),
+      .reveal.is-visible:not(.step-item) {
+        opacity: 1;
+        transform: none;
+      }
+
+      .step-item,
+      .step-item.is-past,
+      .step-item.is-active,
+      .snap-section.is-active .step-item:not(.is-active):not(.is-past),
+      .snap-section.is-active .step-item.is-past {
+        opacity: 1;
+        transform: none;
+        filter: none;
+      }
+
+      .feature-lane.step-item.is-active {
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
+        transform: none;
+      }
+
+      .feature-lane.step-item.is-active::before {
+        opacity: 0;
+      }
+
+      .feature-lane.step-item.is-active .lane-chip {
+        color: #007ea7;
+        border-color: rgba(28, 167, 236, 0.22);
+        background: rgba(53, 224, 194, 0.08);
+        box-shadow: none;
+      }
+
+      .flow-node.step-item,
+      .flow-node.step-item.is-past,
+      .flow-node.step-item.is-active {
+        transform: none;
+      }
+
+      .flow-node.step-item.is-active {
+        border-color: rgba(28, 167, 236, 0.13);
+        box-shadow: 0 20px 58px rgba(8, 55, 82, 0.08);
+      }
+
+      .flow-node.step-item.is-active .node-icon {
+        animation: none;
+      }
+
+      .download-card.step-item.is-active,
+      .download-band.is-active .download-card.step-item:not(.is-active):not(.is-past),
+      .download-band.is-active .download-card.step-item.is-past {
+        opacity: 1;
+        transform: none;
+      }
+
+      .download-card.step-item.is-active {
+        background: rgba(255, 255, 255, 0.09);
+      }
+
+      .future-item.step-item.is-active {
+        background: var(--white);
       }
 
       section {
@@ -2153,6 +2232,12 @@
 
     const clamp = (value, min, max) => Math.max(min, Math.min(value, max));
     const isMobileLayout = () => window.matchMedia("(max-width: 720px)").matches;
+    const updateMobileScrollState = () => {
+      if (!isMobileLayout()) {
+        return;
+      }
+      topbar.classList.toggle("is-scrolled", window.scrollY > 24);
+    };
 
     const syncViewportHeight = () => {
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
@@ -2162,7 +2247,7 @@
     const getSectionScroller = (section) => section?.querySelector(".section-inner");
 
     const scrollActiveStepIntoView = (section) => {
-      if (!isMobileLayout()) {
+      if (isMobileLayout()) {
         return;
       }
       const scroller = getSectionScroller(section);
@@ -2305,6 +2390,9 @@
     };
 
     window.addEventListener("wheel", (event) => {
+      if (isMobileLayout()) {
+        return;
+      }
       const delta = Math.abs(event.deltaY) > Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
       if (Math.abs(delta) < 8) {
         return;
@@ -2314,6 +2402,9 @@
     }, { passive: false });
 
     window.addEventListener("keydown", (event) => {
+      if (isMobileLayout()) {
+        return;
+      }
       const downKeys = ["ArrowDown", "PageDown", " ", "Enter"];
       const upKeys = ["ArrowUp", "PageUp"];
       if (!downKeys.includes(event.key) && !upKeys.includes(event.key)) {
@@ -2324,12 +2415,18 @@
     });
 
     window.addEventListener("touchstart", (event) => {
+      if (isMobileLayout()) {
+        return;
+      }
       touchStartY = event.touches[0]?.clientY || 0;
       touchScrollTarget = isMobileLayout() ? event.target?.closest?.(".section-inner") : null;
       touchUsedNativeScroll = false;
     }, { passive: true });
 
     window.addEventListener("touchmove", (event) => {
+      if (isMobileLayout()) {
+        return;
+      }
       if (canNativeScrollTouch(event)) {
         touchUsedNativeScroll = true;
         return;
@@ -2338,6 +2435,9 @@
     }, { passive: false });
 
     window.addEventListener("touchend", (event) => {
+      if (isMobileLayout()) {
+        return;
+      }
       if (touchUsedNativeScroll) {
         touchUsedNativeScroll = false;
         touchScrollTarget = null;
@@ -2353,6 +2453,9 @@
 
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
       link.addEventListener("click", (event) => {
+        if (isMobileLayout()) {
+          return;
+        }
         const hash = link.getAttribute("href");
         const targetIndex = hash === "#top"
           ? 0
@@ -2372,16 +2475,22 @@
     syncViewportHeight();
     sections.forEach((section) => setStep(section, 0));
     updateActiveState();
-    scrollToCurrent("auto");
+    updateMobileScrollState();
+    if (!isMobileLayout()) {
+      scrollToCurrent("auto");
+    }
 
-    window.addEventListener("resize", () => {
+    const handleViewportChange = () => {
       syncViewportHeight();
-      scrollToCurrent("auto");
-    });
-    window.visualViewport?.addEventListener("resize", () => {
-      syncViewportHeight();
-      scrollToCurrent("auto");
-    });
+      updateMobileScrollState();
+      if (!isMobileLayout()) {
+        scrollToCurrent("auto");
+      }
+    };
+
+    window.addEventListener("resize", handleViewportChange);
+    window.visualViewport?.addEventListener("resize", handleViewportChange);
+    window.addEventListener("scroll", updateMobileScrollState, { passive: true });
 
     const formatBytes = (value) => {
       const size = Number(value || 0);
