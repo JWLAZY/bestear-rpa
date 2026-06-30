@@ -21,6 +21,7 @@
       --amber: #ffb020;
       --rose: #f04438;
       --radius: 18px;
+      --bestear-vh: 100svh;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
     }
 
@@ -1365,6 +1366,11 @@
     }
 
     @media (max-width: 720px) {
+      html,
+      body {
+        min-height: var(--bestear-vh);
+      }
+
       .topbar,
       .hero-inner,
       .section-inner,
@@ -1401,7 +1407,7 @@
 
       .hero {
         min-height: 760px;
-        height: 100svh;
+        height: var(--bestear-vh);
       }
 
       .hero-inner {
@@ -1492,6 +1498,32 @@
       }
 
       .task-pill {
+        display: none;
+      }
+
+      main > section {
+        min-height: var(--bestear-vh);
+        height: var(--bestear-vh);
+      }
+
+      main > section:not(.hero) {
+        align-items: stretch;
+        min-height: var(--bestear-vh);
+        height: var(--bestear-vh);
+        overflow: hidden;
+      }
+
+      .snap-section:not(.hero) .section-inner {
+        max-height: var(--bestear-vh);
+        padding-top: 118px;
+        padding-bottom: max(118px, calc(env(safe-area-inset-bottom) + 118px));
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+
+      .snap-section:not(.hero) .section-inner::-webkit-scrollbar {
         display: none;
       }
 
@@ -2086,6 +2118,8 @@
     let currentIndex = 0;
     let isLocked = false;
     let touchStartY = 0;
+    let touchScrollTarget = null;
+    let touchUsedNativeScroll = false;
 
     const sectionLabels = ["首屏", "RPA", "流程", "下载", "AI", "开始"];
     const releaseConfig = {
@@ -2118,6 +2152,55 @@
     });
 
     const clamp = (value, min, max) => Math.max(min, Math.min(value, max));
+    const isMobileLayout = () => window.matchMedia("(max-width: 720px)").matches;
+
+    const syncViewportHeight = () => {
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      document.documentElement.style.setProperty("--bestear-vh", `${Math.round(viewportHeight)}px`);
+    };
+
+    const getSectionScroller = (section) => section?.querySelector(".section-inner");
+
+    const scrollActiveStepIntoView = (section) => {
+      if (!isMobileLayout()) {
+        return;
+      }
+      const scroller = getSectionScroller(section);
+      const activeItem = section?.querySelector(".step-item.is-active");
+      if (!scroller || !activeItem || scroller.scrollHeight <= scroller.clientHeight + 2) {
+        return;
+      }
+      window.requestAnimationFrame(() => {
+        const scrollerRect = scroller.getBoundingClientRect();
+        const itemRect = activeItem.getBoundingClientRect();
+        const topGap = 16;
+        const bottomGap = 92;
+        let nextScrollTop = scroller.scrollTop;
+        if (itemRect.bottom > scrollerRect.bottom - bottomGap) {
+          nextScrollTop += itemRect.bottom - scrollerRect.bottom + bottomGap;
+        } else if (itemRect.top < scrollerRect.top + topGap) {
+          nextScrollTop -= scrollerRect.top + topGap - itemRect.top;
+        }
+        scroller.scrollTo({ top: Math.max(0, nextScrollTop), behavior: reduceMotion ? "auto" : "smooth" });
+      });
+    };
+
+    const canNativeScrollTouch = (event) => {
+      if (!isMobileLayout() || !touchScrollTarget) {
+        return false;
+      }
+      if (touchScrollTarget.scrollHeight <= touchScrollTarget.clientHeight + 2) {
+        return false;
+      }
+      const currentY = event.touches[0]?.clientY || touchStartY;
+      const delta = touchStartY - currentY;
+      if (Math.abs(delta) < 4) {
+        return true;
+      }
+      const canScrollDown = touchScrollTarget.scrollTop + touchScrollTarget.clientHeight < touchScrollTarget.scrollHeight - 2;
+      const canScrollUp = touchScrollTarget.scrollTop > 2;
+      return delta > 0 ? canScrollDown : canScrollUp;
+    };
 
     const setStep = (section, step) => {
       const items = section._stepItems || [];
@@ -2130,6 +2213,7 @@
         item.classList.toggle("is-active", index === nextStep);
         item.classList.toggle("is-past", index < nextStep);
       });
+      scrollActiveStepIntoView(section);
     };
 
     const updateActiveState = () => {
@@ -2176,6 +2260,10 @@
       isLocked = true;
       currentIndex = nextIndex;
       const activeSection = sections[currentIndex];
+      const activeScroller = getSectionScroller(activeSection);
+      if (activeScroller) {
+        activeScroller.scrollTop = 0;
+      }
       const items = activeSection._stepItems || [];
       if (items.length) {
         const step = options.resetStep ? 0 : direction < 0 ? items.length - 1 : 0;
@@ -2237,18 +2325,30 @@
 
     window.addEventListener("touchstart", (event) => {
       touchStartY = event.touches[0]?.clientY || 0;
+      touchScrollTarget = isMobileLayout() ? event.target?.closest?.(".section-inner") : null;
+      touchUsedNativeScroll = false;
     }, { passive: true });
 
     window.addEventListener("touchmove", (event) => {
+      if (canNativeScrollTouch(event)) {
+        touchUsedNativeScroll = true;
+        return;
+      }
       event.preventDefault();
     }, { passive: false });
 
     window.addEventListener("touchend", (event) => {
+      if (touchUsedNativeScroll) {
+        touchUsedNativeScroll = false;
+        touchScrollTarget = null;
+        return;
+      }
       const touchEndY = event.changedTouches[0]?.clientY || 0;
       const distance = touchStartY - touchEndY;
       if (Math.abs(distance) > 36) {
         move(distance > 0 ? 1 : -1);
       }
+      touchScrollTarget = null;
     }, { passive: true });
 
     document.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -2269,11 +2369,19 @@
       ? 0
       : sections.findIndex((section) => `#${section.id}` === initialHash);
     currentIndex = initialIndex >= 0 ? initialIndex : 0;
+    syncViewportHeight();
     sections.forEach((section) => setStep(section, 0));
     updateActiveState();
     scrollToCurrent("auto");
 
-    window.addEventListener("resize", () => scrollToCurrent("auto"));
+    window.addEventListener("resize", () => {
+      syncViewportHeight();
+      scrollToCurrent("auto");
+    });
+    window.visualViewport?.addEventListener("resize", () => {
+      syncViewportHeight();
+      scrollToCurrent("auto");
+    });
 
     const formatBytes = (value) => {
       const size = Number(value || 0);
