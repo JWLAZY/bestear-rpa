@@ -358,6 +358,95 @@
       margin-top: 32px;
     }
 
+    .hero-downloads {
+      max-width: 650px;
+      margin-top: 28px;
+    }
+
+    .hero-download-title {
+      margin-bottom: 12px;
+      color: rgba(255, 255, 255, 0.84);
+      font-size: 15px;
+      font-weight: 900;
+    }
+
+    .hero-download-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-download-button {
+      display: inline-grid;
+      grid-template-columns: 36px minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      min-height: 58px;
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      border-radius: 18px;
+      padding: 8px 14px 8px 10px;
+      color: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 48px rgba(126, 17, 10, 0.14);
+      transition: transform 180ms ease, background 180ms ease, color 180ms ease, opacity 180ms ease;
+    }
+
+    .hero-download-button:hover {
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-download-button.is-ready {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.94);
+    }
+
+    .hero-download-button.is-disabled {
+      pointer-events: none;
+      opacity: 0.58;
+    }
+
+    .hero-download-icon {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 13px;
+      color: var(--jet);
+      background: var(--white);
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .hero-download-button.is-ready .hero-download-icon {
+      color: var(--white);
+      background: linear-gradient(135deg, var(--jet), var(--jet-soft));
+      box-shadow: 0 12px 28px rgba(255, 50, 31, 0.22);
+    }
+
+    .hero-download-copy b,
+    .hero-download-copy small {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .hero-download-copy b {
+      font-size: 13px;
+      font-weight: 950;
+    }
+
+    .hero-download-copy small {
+      margin-top: 2px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .hero-download-button.is-ready .hero-download-copy small {
+      color: rgba(17, 24, 39, 0.56);
+    }
+
     .hero-side {
       position: relative;
       align-self: end;
@@ -1373,21 +1462,49 @@
         font-size: 17px;
       }
 
+      .hero-downloads {
+        margin-top: 20px;
+      }
+
+      .hero-download-title {
+        font-size: 13px;
+      }
+
+      .hero-download-button {
+        flex: 1 1 146px;
+        min-height: 50px;
+        border-radius: 15px;
+        padding: 7px 10px 7px 8px;
+      }
+
+      .hero-download-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 11px;
+      }
+
+      .hero-download-copy b {
+        font-size: 12px;
+      }
+
+      .hero-download-copy small {
+        font-size: 10px;
+      }
+
       .hero-side {
-        min-height: 390px;
+        min-height: 0;
       }
 
       .hero-note {
         position: relative;
         max-width: 300px;
-        margin-bottom: 18px;
+        margin-top: 18px;
+        margin-bottom: 0;
         font-size: 16px;
       }
 
       .product-orbit {
-        position: relative;
-        width: 100%;
-        min-height: 370px;
+        display: none;
       }
 
       .orbit-ring {
@@ -1785,7 +1902,24 @@
             <p class="hero-text">一套安卓自动化工作台，跑养号、发布、下载和任务回写。</p>
             <div class="hero-actions">
               <a class="btn light" href="#capabilities">查看能力</a>
-              <a class="btn" href="#download">视频下载</a>
+              <a class="btn" href="#workflow">看流程</a>
+            </div>
+            <div class="hero-downloads" aria-label="BestEar 桌面客户端下载">
+              <p class="hero-download-title">下载 BestEar 桌面端</p>
+              <div class="hero-download-buttons">
+                <a class="hero-download-button is-disabled" data-hero-platform="macos-arm64" href="#download" aria-disabled="true">
+                  <span class="hero-download-icon">M</span>
+                  <span class="hero-download-copy"><b>Mac M 系列</b><small data-hero-release-meta>获取最新版本</small></span>
+                </a>
+                <a class="hero-download-button is-disabled" data-hero-platform="macos-x64" href="#download" aria-disabled="true">
+                  <span class="hero-download-icon">I</span>
+                  <span class="hero-download-copy"><b>Mac Intel</b><small data-hero-release-meta>获取最新版本</small></span>
+                </a>
+                <a class="hero-download-button is-disabled" data-hero-platform="win-x64" href="#download" aria-disabled="true">
+                  <span class="hero-download-icon">W</span>
+                  <span class="hero-download-copy"><b>Windows</b><small data-hero-release-meta>获取最新版本</small></span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -2272,6 +2406,40 @@
       link.setAttribute("aria-disabled", "false");
     };
 
+    const renderHeroDownloadReady = (platform, result) => {
+      const link = document.querySelector(`[data-hero-platform="${platform.key}"]`);
+      if (!link) {
+        return;
+      }
+      const meta = link.querySelector("[data-hero-release-meta]");
+      link.href = result.downloadUrl;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.classList.add("is-ready");
+      link.classList.remove("is-disabled", "is-error");
+      link.setAttribute("aria-disabled", "false");
+      if (meta) {
+        meta.textContent = `v${result.version} · ${formatBytes(result.size)}`;
+      }
+    };
+
+    const renderHeroDownloadError = (platform, error) => {
+      const link = document.querySelector(`[data-hero-platform="${platform.key}"]`);
+      if (!link) {
+        return;
+      }
+      const meta = link.querySelector("[data-hero-release-meta]");
+      link.removeAttribute("target");
+      link.removeAttribute("rel");
+      link.href = "#download";
+      link.classList.remove("is-ready");
+      link.classList.add("is-disabled", "is-error");
+      link.setAttribute("aria-disabled", "true");
+      if (meta) {
+        meta.textContent = error.message || "暂不可用";
+      }
+    };
+
     const renderDownloadError = (platform, error) => {
       const card = document.querySelector(`[data-platform-card="${platform.key}"]`);
       if (!card) {
@@ -2304,9 +2472,11 @@
               downloadUrl: item.download_url,
             };
             readyItems.push(result);
+            renderHeroDownloadReady(platform, result);
             renderDownloadCard(platform, result);
             return;
           }
+          renderHeroDownloadError(platform, new Error("暂无安装包"));
           renderDownloadError(platform, new Error("暂无安装包"));
         });
         if (!summary) {
@@ -2319,7 +2489,10 @@
         const versions = Array.from(new Set(readyItems.map((item) => item.version)));
         summary.textContent = `已获取 ${readyItems.length}/${releasePlatforms.length} 个平台 · 最新版本 ${versions.join(" / ")}`;
       } catch (error) {
-        releasePlatforms.forEach((platform) => renderDownloadError(platform, error));
+        releasePlatforms.forEach((platform) => {
+          renderHeroDownloadError(platform, error);
+          renderDownloadError(platform, error);
+        });
         if (summary) {
           summary.textContent = "暂未连接下载接口，部署后会自动显示最新版";
         }
